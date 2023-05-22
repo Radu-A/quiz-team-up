@@ -1,10 +1,49 @@
-/* ESTILOS RESULTS.HTML */
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
 
 :root {
   --main-white: #eaeaea;
   --border: 1px solid #868686;
   --padding: 20px;
 }
+
+/* INDEX.HTML */
+body {
+    background-image: url("../assets/questing-background_23-2148159239.png");
+    background-color: #6161cb;
+    height: 100vh;
+}
+main {
+    margin: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+h1 {
+    font-size: 2rem;
+}
+/* puede sustituirse por section */
+#welcome, #graph {
+    background-color: #ffffff;
+    font-family: Pangolin;
+    color: #34343f;
+    border-radius: 1.5rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+
+}
+#go {
+    font-family: inherit;
+    height: 2.5rem;
+    border: none;
+    border-radius: 3px;
+    background-color: #b6b6b6;
+}
+
+/* ESTILOS RESULTS.HTML */
 
 .results {
   min-height: 100vh;
@@ -40,3 +79,4 @@
   outline: none;
   border: var(--border);
 }
+
