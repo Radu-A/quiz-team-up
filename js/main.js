@@ -32,7 +32,7 @@ function printFieldset(question, answers, i) {
                 </div>
                 <div class="d">
                     <input type="radio" name="answer${i}" id="${answers[3]}">
-                    <label for="${answers[2]}">${answers[2]}</label>
+                    <label for="${answers[3]}">${answers[3]}</label>
                 </div>
             </fieldset>`
             quizForm.appendChild(myDiv);
