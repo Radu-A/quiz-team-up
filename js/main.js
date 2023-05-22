@@ -1,4 +1,6 @@
 
+
+const questionSec = document.querySelector(".questions form");
 // nos conectamos a la api
 async function printQuiz() {
     try {

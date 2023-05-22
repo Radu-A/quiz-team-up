@@ -9,9 +9,12 @@
 
 /* INDEX.HTML */
 body {
+    padding: 0;
     margin: 0;
+    box-sizing: border-box;
     font-family: 'Braah One';
     color: var(--theme-color);
+    background-color: #bcd7e0;
 }
 main {
     min-height: 100vh;
@@ -20,8 +23,9 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url(../assets/images/quiz-bg.png);
     background-size: contain;
+    padding: 0;
+    margin: 0;
   }
 h1 {
     font-size: 2rem;
@@ -55,15 +59,50 @@ h1 {
 /* ESTILOS QUESTIONS.HTML */
 .questions {
     padding: var(--padding) 30px;
-    background-color: var(--main-white);
-    border: var(--border);
+    background-color: white;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     box-shadow: 1px 1px 30px;
     border-radius: 20px;
-    width: 70%;
+    width: 95%;
+}
+fieldset {
+    height: 80vh;
+    border: none;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0;
+}
+fieldset div {
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* div de respuestas */
+.a {
+    background-color: #06d6a0;
+}
+.b {
+    background-color: #ffd166;
+}
+.c {
+    background-color: #ef476f;
+}
+.d {
+    background-color: #118ab2;
+}
+legend {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--theme-color);
 }
 input[type="radio"] {
     display: none;
