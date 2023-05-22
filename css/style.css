@@ -18,14 +18,16 @@ main {
 h1 {
     font-size: 2rem;
 }
+/* puede sustituirse por section */
 #welcome, #graph {
     background-color: #ffffff;
     font-family: Pangolin;
     color: #34343f;
-    border-radius: 3px;
+    border-radius: 1.5rem;
     padding: 1rem;
     display: flex;
     flex-direction: column;
+
 }
 #go {
     font-family: inherit;
