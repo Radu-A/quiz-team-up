@@ -1,0 +1,42 @@
+/* ESTILOS RESULTS.HTML */
+
+:root {
+  --main-white: #eaeaea;
+  --border: 1px solid #868686;
+  --padding: 20px;
+}
+
+.results {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(/assets/images/quiz-bg.png);
+  background-size: contain;
+}
+.results-card {
+  padding: var(--padding) 30px;
+  background-color: var(--main-white);
+  border: var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 30px;
+  border-radius: 20px;
+}
+
+.results-final-result {
+  margin: 7px 0px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.results-try-again {
+  padding: var(--padding);
+  border-radius: 20px;
+  outline: none;
+  border: var(--border);
+}
