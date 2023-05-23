@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Braah+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Braah+One&display=swap");
 
 :root {
   --main-white: #eaeaea;
@@ -9,121 +9,129 @@
 
 /* INDEX.HTML */
 body {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Braah One';
-    color: var(--theme-color);
-    background-color: #bcd7e0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Braah One";
+  color: var(--theme-color);
+  background-color: #bcd7e0;
 }
 main {
-    min-height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-size: contain;
-    padding: 0;
-    margin: 0;
-  }
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: contain;
+  padding: 0;
+  margin: 0;
+}
 h1 {
-    font-size: 2rem;
-    text-align: center;
+  font-size: 2rem;
+  text-align: center;
 }
 /* puede sustituirse por section */
-#welcome, #graph {
-    box-sizing: border-box;
-    padding: var(--padding) 30px;
-    background-color: var(--main-white);
-    border: var(--border);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 1px 1px 30px;
-    border-radius: 20px;
-    width: 80%;
+#welcome,
+#graph {
+  box-sizing: border-box;
+  padding: var(--padding) 30px;
+  background-color: var(--main-white);
+  border: var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 30px;
+  border-radius: 20px;
+  width: 80%;
 }
 #go {
-    padding: var(--padding);
-    border-radius: 20px;
-    outline: none;
-    border: var(--border);
-    width: 7rem;
-    font-family: inherit;
-    color: inherit;
-    border: 1px solid #272d4b;
+  padding: var(--padding);
+  border-radius: 20px;
+  outline: none;
+  border: var(--border);
+  width: 7rem;
+  font-family: inherit;
+  color: inherit;
+  border: 1px solid #272d4b;
 }
 
 /* ESTILOS QUESTIONS.HTML */
 .questions {
-    padding: var(--padding) 30px;
-    background-color: white;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 1px 1px 30px;
-    border-radius: 20px;
-    width: 95%;
+  padding: var(--padding) 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+  box-shadow: 1px 1px 30px;
+}
+
+.questions-nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+.questions-nav li {
+  list-style: none;
 }
 fieldset {
-    height: 100vh;
-    border: none;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 0 auto;
-    padding: 0;
+  height: 100vh;
+  border: none;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
 }
 fieldset div {
-    width: 100%;
-    max-width: 450px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* div de respuestas */
 .a {
-    background-color: #06d6a0;
+  background-color: #06d6a0;
 }
 .b {
-    background-color: #ffd166;
+  background-color: #ffd166;
 }
 .c {
-    background-color: #ef476f;
+  background-color: #ef476f;
 }
 .d {
-    background-color: #118ab2;
+  background-color: #118ab2;
 }
 legend {
-    text-align: center;
-    font-size: 2rem;
-    color: var(--theme-color);
+  text-align: center;
+  font-size: 2rem;
+  color: var(--theme-color);
 }
 input[type="radio"] {
-    display: none;
+  display: none;
 }
 label {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 input:checked + label {
-    background-color: hsla(0, 0%, 100%, 0.6);
-    color: #083a50;
-    font-size: 1.3rem;
-    border: 4px solid #083a50;
+  background-color: hsla(0, 0%, 100%, 0.6);
+  color: #083a50;
+  font-size: 1.3rem;
+  border: 4px solid #083a50;
 }
 /* ESTILOS RESULTS.HTML */
-
 
 .results-card {
   padding: var(--padding) 30px;
@@ -153,4 +161,3 @@ input:checked + label {
   color: inherit;
   border: 1px solid #272d4b;
 }
-
