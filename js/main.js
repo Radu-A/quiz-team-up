@@ -1,61 +1,89 @@
-
-
-const quizForm = document.querySelector("#quiz-form");
-const correct = [];
+const questionsSec = document.querySelector(".questions");
 // función para barajar el array de respuestas
 function shuffle(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 //función para imprimir un fieldset
-function printFieldset(question, answers, i) {
-    const myDiv = document.createElement("div");
-            myDiv.innerHTML = `<fieldset id="fieldset${i}">
+function printFieldset(obj, i) {
+  const myDiv = document.createElement("div");
+  myDiv.className = "question";
+  myDiv.innerHTML = `<fieldset id="fieldset${i}">
                 <div>
-                    <legend>${question}</legend>
+                    <legend>${obj.question}</legend>
                 </div>
                 
                 <div class="a">
-                    <input type="radio" name="answer${i}" id="${answers[0]}">
-                    <label for="${answers[0]}">${answers[0]}</label>
+                    <input type="radio" name="answer${i}" id="${obj.randomAnswers[0]}">
+                    <label for="${obj.randomAnswers[0]}">${obj.randomAnswers[0]}</label>
                 </div>
                 <div class="b">
-                    <input type="radio" name="answer${i}" id="${answers[1]}">
-                    <label for="${answers[1]}">${answers[1]}</label>
+                    <input type="radio" name="answer${i}" id="${obj.randomAnswers[1]}">
+                    <label for="${obj.randomAnswers[1]}">${obj.randomAnswers[1]}</label>
                 </div>
                 <div class="c">
-                    <input type="radio" name="answer${i}" id="${answers[2]}">
-                    <label for="${answers[2]}">${answers[2]}</label>
+                    <input type="radio" name="answer${i}" id="${obj.randomAnswers[2]}">
+                    <label for="${obj.randomAnswers[2]}">${obj.randomAnswers[2]}</label>
                 </div>
                 <div class="d">
-                    <input type="radio" name="answer${i}" id="${answers[3]}">
-                    <label for="${answers[3]}">${answers[3]}</label>
+                    <input type="radio" name="answer${i}" id="${obj.randomAnswers[3]}">
+                    <label for="${obj.randomAnswers[3]}">${obj.randomAnswers[3]}</label>
                 </div>
-            </fieldset>`
-            quizForm.appendChild(myDiv);
+            </fieldset>`;
+  questionsSec.appendChild(myDiv);
 }
+
 // nos conectamos a la api
-async function printQuiz() {
-    try {
-        let res = await fetch("https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple");
-        let data = await res.json();
-        data.results.forEach((element, i)=>{
-            const question = element.question;
-            let answers = [];
-            correct.push(element.correct_answer);
-            answers.push(element.correct_answer);
-            element.incorrect_answers.forEach(item=> {
-                answers.push(item);
-            });
-            const randomAnswers = shuffle(answers);
-            
-            printFieldset(question, randomAnswers, i);
-        })
-    } catch {
-        console.log(`ERROR: ${error.stack}`);
-    }
+async function getQuiz() {
+  try {
+    let res = await fetch(
+      "https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple"
+    );
+    let data = await res.json();
+    let { results } = data;
+    return results.map((element) => {
+      const question = element.question;
+      const correct = element.correct_answer;
+      let answers = [];
+      answers.push(element.correct_answer);
+      element.incorrect_answers.forEach((item) => {
+        answers.push(item);
+      });
+      const randomAnswers = shuffle(answers);
+      return { question, correct, randomAnswers };
+      //   printFieldset(question, randomAnswers, i);
+    });
+  } catch (error) {
+    console.log(`ERROR: ${error.stack}`);
+  }
 }
-printQuiz();
+let quiz = getQuiz().then((data) => data);
+
+quiz.then((data) => printFieldset(data[0], 1));
+
+window.addEventListener("hashchange", () => {
+  let hash = window.location.hash;
+  questionsSec.innerHTML = "";
+  quiz.then((data) => {
+    switch (hash) {
+      case "#/question-1":
+        printFieldset(data[0], 1);
+        break;
+      case "#/question-2":
+        printFieldset(data[1], 2);
+        break;
+      case "#/question-3":
+        printFieldset(data[2], 3);
+        break;
+      case "#/question-4":
+        printFieldset(data[3], 4);
+        break;
+      case "#/question-5":
+        printFieldset(data[4], 5);
+        break;
+    }
+  });
+});
