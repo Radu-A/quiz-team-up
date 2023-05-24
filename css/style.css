@@ -163,3 +163,18 @@ input:checked + label {
   color: inherit;
   border: 1px solid #272d4b;
 }
+
+/* VALIDACIÓN */
+
+.correct {
+  background-color: #8bff87;
+  color: #0dde05;
+  font-size: 1.3rem;
+  border: 4px solid #0dde05;
+}
+.wrong {
+  background-color: #f9a7a7;
+  color: #ff0000;
+  font-size: 1.3rem;
+  border: 4px solid #ff0000;
+}

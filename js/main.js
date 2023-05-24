@@ -17,19 +17,19 @@ function printFieldset(obj, i) {
                 <section class="answers-section">
                     <div class="a">
                         <input type="radio" name="answer${i}" id="${obj.randomAnswers[0]}">
-                        <label for="${obj.randomAnswers[0]}">${obj.randomAnswers[0]}</label>
+                        <label class="answer${i}" for="${obj.randomAnswers[0]}">${obj.randomAnswers[0]}</label>
                     </div>
                     <div class="b">
                         <input type="radio" name="answer${i}" id="${obj.randomAnswers[1]}">
-                        <label for="${obj.randomAnswers[1]}">${obj.randomAnswers[1]}</label>
+                        <label class="answer${i}" for="${obj.randomAnswers[1]}">${obj.randomAnswers[1]}</label>
                     </div>
                     <div class="c">
                         <input type="radio" name="answer${i}" id="${obj.randomAnswers[2]}">
-                        <label for="${obj.randomAnswers[2]}">${obj.randomAnswers[2]}</label>
+                        <label class="answer${i}" for="${obj.randomAnswers[2]}">${obj.randomAnswers[2]}</label>
                     </div>
                     <div class="d">
                         <input type="radio" name="answer${i}" id="${obj.randomAnswers[3]}">
-                        <label for="${obj.randomAnswers[3]}">${obj.randomAnswers[3]}</label>
+                        <label class="answer${i}" for="${obj.randomAnswers[3]}">${obj.randomAnswers[3]}</label>
                     </div>
                 </section>`;
   questionsSec.innerHTML = question;
@@ -109,18 +109,21 @@ window.addEventListener("hashchange", () => {
 
 function validation(correct, i) {
   const inputs = document.querySelectorAll(`input[name='answer${i}']`);
-
-  inputs.forEach(element=> {
+  const labels = document.querySelectorAll(`label[class='answer${i}']`);
+  inputs.forEach((element, j) => {
     element.addEventListener("click", function(event) {
       event.preventDefault();
       if (event.target.id === correct) {
-        alert('Has acertado')
-        
+        labels[j].classList.add("correct");
       } else {
-        alert('No tienes ni puta idea')
+        labels[j].classList.add("wrong");
       }
+      lockingInputs(i);
     })
   })
 }
 
-
+function lockingInputs(i) {
+  const inputs = document.querySelectorAll(`input[name='answer${i}']`);
+  inputs.forEach(element=>element.setAttribute("disabled", "disabled"));
+}
