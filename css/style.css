@@ -4,7 +4,9 @@
   --main-white: #eaeaea;
   --theme-color: #272d4b;
   --border: 1px solid #868686;
+  --border-radius: 20px;
   --padding: 20px;
+  --main-bg: url(/assets/images/quiz-bg-test.jpg);
 }
 * {
   margin: 0;
@@ -17,46 +19,53 @@ body {
   color: var(--theme-color);
   background-color: #bcd7e0;
 }
-main {
+
+h1 {
+  font-size: 1.8rem;
+  text-align: center;
+}
+a {
+  text-decoration: none;
+}
+.index {
   min-height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-size: contain;
+  background-image: var(--main-bg);
+  background-size: cover;
+  padding: var(--padding);
 }
-h1 {
-  font-size: 2rem;
-  text-align: center;
-}
+
 /* puede sustituirse por section */
 #welcome,
 #graph {
-  padding: var(--padding) 30px;
-  background-color: var(--main-white);
-  border: var(--border);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: var(--padding);
+  background-color: var(--main-white);
+  border: var(--border);
   box-shadow: 1px 1px 30px;
-  border-radius: 20px;
-  width: 80%;
+  border-radius: var(--border-radius);
+  gap: 20px;
+}
+
+#welcome h2 {
+  font-size: 1.2rem;
+  text-align: center;
 }
 #start-button {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: var(--padding);
   border-radius: 20px;
   border: var(--border);
-  width: 7rem;
   color: inherit;
   text-decoration: none;
-}
-#start-button span {
-  vertical-align: middle;
 }
 /* ESTILOS QUESTIONS.HTML */
 .questions-nav {
@@ -87,8 +96,10 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: var(--main-white);
+  background-image: var(--main-bg);
+  background-size: cover;
 }
+
 .question-text {
   min-height: 40vh;
   padding: var(--padding);
@@ -97,7 +108,9 @@ h1 {
   align-items: center;
   text-align: center;
   font-size: 2rem;
-  color: var(--theme-color);
+  color: var(--main-white);
+  -webkit-text-stroke: 2px black;
+  text-shadow: 3px 4px 20px #000;
 }
 .answers-section {
   width: 100%;
@@ -135,26 +148,41 @@ input:checked + label {
 }
 /* ESTILOS RESULTS.HTML */
 
-.results-card {
-  padding: var(--padding) 30px;
-  background-color: var(--main-white);
-  border: var(--border);
+.results {
+  min-height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: var(--main-bg);
+  background-size: cover;
+  padding: var(--padding);
+}
+
+.results-card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: var(--padding);
+  background-color: var(--main-white);
+  border: var(--border);
   box-shadow: 1px 1px 30px;
-  border-radius: 20px;
-  width: 70%;
+  border-radius: var(--border-radius);
+  gap: 20px;
 }
 
 .results-final-result {
   margin: 7px 0px;
   font-size: 2rem;
+  text-align: center;
   font-weight: bold;
 }
 
 .results-try-again {
+  width: 100%;
   padding: var(--padding);
   border-radius: 20px;
   outline: none;
