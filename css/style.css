@@ -24,7 +24,9 @@ h1 {
   font-size: 1.8rem;
   text-align: center;
 }
-a, a:active, a:visited {
+a,
+a:active,
+a:visited {
   text-decoration: none;
 }
 .index {
@@ -68,11 +70,16 @@ a, a:active, a:visited {
   text-decoration: none;
 }
 /* ESTILOS QUESTIONS.HTML */
+.questions-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .questions-nav {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 5vh;
+  height: 8vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -162,6 +169,7 @@ input:checked + label {
 
 .results-card {
   width: 100%;
+  max-width: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
