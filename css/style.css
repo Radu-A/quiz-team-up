@@ -67,21 +67,22 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-
   background-color: cadetblue;
 }
 .questions-nav ul {
   display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 40px;
 }
 .questions-nav li {
   list-style: none;
 }
+.questions-nav li a {
+  text-decoration: none;
+}
 
 .questions {
   min-height: 100vh;
+  max-width: 450px;
   padding-top: 8vh;
   display: flex;
   flex-direction: column;
