@@ -6,7 +6,7 @@
   --border: 1px solid #868686;
   --border-radius: 20px;
   --padding: 20px;
-  --main-bg: url(/assets/images/quiz-bg-test.jpg);
+  --main-bg: url(../assets/images/quiz-bg-test.jpg);
 }
 * {
   margin: 0;
@@ -195,13 +195,13 @@ input:checked + label {
 /* VALIDACIÓN */
 
 .correct {
-  background-color: #8bff87;
+  background-color: #a0fd9c;
   color: #0dde05;
   font-size: 1.3rem;
   border: 4px solid #0dde05;
 }
 .wrong {
-  background-color: #f9a7a7;
+  background-color: #ffc0c0;
   color: #ff0000;
   font-size: 1.3rem;
   border: 4px solid #ff0000;

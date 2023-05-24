@@ -115,14 +115,47 @@ function validation(correct, i) {
       event.preventDefault();
       if (event.target.id === correct) {
         labels[j].classList.add("correct");
+        Swal.fire({
+          title: 'Correct!',
+          text: `"${correct}" is the correct answer`,
+          color: '#272d4b',
+          icon: 'success',
+          iconColor: '#0dde05',
+          confirmButtonText: 'Continue!',
+          confirmButtonColor: '#118ab2'
+        }).then(() => {
+          lockingInputs(i); 
+          if (i < 5) {
+            location.hash = `#/question-${i + 1}`;
+          } else {
+            window.location = './results.html';
+          }
+        })
+        
       } else {
+        Swal.fire({
+          title: 'Wrong!',
+          text: `The correct anser was: "${correct}"`,
+          color: '#272d4b',
+          icon: 'error',
+          iconColor: '#ff0000',
+          confirmButtonText: 'Cool',
+          confirmButtonColor: '#118ab2'
+        }).then(() => {
+          if (i < 5) {
+            location.hash = `#/question-${i + 1}`;
+          } else {
+            window.location = './results.html';
+          }
+        })
         labels[j].classList.add("wrong");
       }
-      lockingInputs(i);
     })
   })
 }
 
+// al hacer el cambio de pantalla durante la validación, sobra
+// lo mantengo por si acaso 
 function lockingInputs(i) {
   const inputs = document.querySelectorAll(`input[name='answer${i}']`);
   inputs.forEach(element=>element.setAttribute("disabled", "disabled"));
