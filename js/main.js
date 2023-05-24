@@ -108,12 +108,14 @@ window.addEventListener("hashchange", () => {
 // VALIDACIOOON!!!!!
 
 function validation(correct, i) {
+  // almacenamos inputs para el checkeo y labels para modificar apariencia 
   const inputs = document.querySelectorAll(`input[name='answer${i}']`);
   const labels = document.querySelectorAll(`label[class='answer${i}']`);
   inputs.forEach((element, j) => {
     element.addEventListener("click", function(event) {
       event.preventDefault();
       if (event.target.id === correct) {
+        // añadimos la clase "correct" a la label y lanzamos mensaje
         labels[j].classList.add("correct");
         Swal.fire({
           title: 'Correct!',
@@ -124,7 +126,6 @@ function validation(correct, i) {
           confirmButtonText: 'Continue!',
           confirmButtonColor: '#118ab2'
         }).then(() => {
-          lockingInputs(i); 
           if (i < 5) {
             location.hash = `#/question-${i + 1}`;
           } else {
@@ -133,6 +134,8 @@ function validation(correct, i) {
         })
         
       } else {
+        // añadimos la clase "wrong" a la label y lanzamos mensaje
+        labels[j].classList.add("wrong");
         Swal.fire({
           title: 'Wrong!',
           text: `The correct anser was: "${correct}"`,
@@ -148,15 +151,7 @@ function validation(correct, i) {
             window.location = './results.html';
           }
         })
-        labels[j].classList.add("wrong");
       }
     })
   })
-}
-
-// al hacer el cambio de pantalla durante la validación, sobra
-// lo mantengo por si acaso 
-function lockingInputs(i) {
-  const inputs = document.querySelectorAll(`input[name='answer${i}']`);
-  inputs.forEach(element=>element.setAttribute("disabled", "disabled"));
 }
