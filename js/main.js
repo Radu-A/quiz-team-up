@@ -17,19 +17,19 @@ function printFieldset(obj, i) {
                 <section class="answers-section">
                     <div class="a">
                         <input type="radio" name="answer${i}" id="${obj.randomAnswers[0]}">
-                        <label for="${obj.randomAnswers[0]}">${obj.randomAnswers[0]}</label>
+                        <label class="answer${i}" for="${obj.randomAnswers[0]}">${obj.randomAnswers[0]}</label>
                     </div>
                     <div class="b">
                         <input type="radio" name="answer${i}" id="${obj.randomAnswers[1]}">
-                        <label for="${obj.randomAnswers[1]}">${obj.randomAnswers[1]}</label>
+                        <label class="answer${i}" for="${obj.randomAnswers[1]}">${obj.randomAnswers[1]}</label>
                     </div>
                     <div class="c">
                         <input type="radio" name="answer${i}" id="${obj.randomAnswers[2]}">
-                        <label for="${obj.randomAnswers[2]}">${obj.randomAnswers[2]}</label>
+                        <label class="answer${i}" for="${obj.randomAnswers[2]}">${obj.randomAnswers[2]}</label>
                     </div>
                     <div class="d">
                         <input type="radio" name="answer${i}" id="${obj.randomAnswers[3]}">
-                        <label for="${obj.randomAnswers[3]}">${obj.randomAnswers[3]}</label>
+                        <label class="answer${i}" for="${obj.randomAnswers[3]}">${obj.randomAnswers[3]}</label>
                     </div>
                 </section>`;
   questionsSec.innerHTML = question;
@@ -67,7 +67,11 @@ async function getQuiz() {
 // para no hacer varias diferentes llamadas en una sola partida
 let quiz = getQuiz();
 // pintamos la primera respuesta
-quiz.then((data) => printFieldset(data[0], 1));
+quiz.then((data) => {
+  printFieldset(data[0], 1);
+
+  validation(data[0].correct, 1);
+});
 // empleamos el evento "hashchange" para movernos
 // por las diferentes páginas
 window.addEventListener("hashchange", () => {
@@ -79,19 +83,47 @@ window.addEventListener("hashchange", () => {
     switch (hash) {
       case "#/question-1":
         printFieldset(data[0], 1);
+        validation(data[0].correct, 1);
         break;
       case "#/question-2":
         printFieldset(data[1], 2);
+        validation(data[1].correct, 2);
         break;
       case "#/question-3":
         printFieldset(data[2], 3);
+        validation(data[2].correct, 3);
         break;
       case "#/question-4":
         printFieldset(data[3], 4);
+        validation(data[3].correct, 4);
         break;
       case "#/question-5":
         printFieldset(data[4], 5);
+        validation(data[4].correct, 5);
         break;
     }
   });
 });
+
+// VALIDACIOOON!!!!!
+
+function validation(correct, i) {
+  const inputs = document.querySelectorAll(`input[name='answer${i}']`);
+  const labels = document.querySelectorAll(`label[class='answer${i}']`);
+  inputs.forEach((element, j) => {
+    element.addEventListener("click", function(event) {
+      event.preventDefault();
+      if (event.target.id === correct) {
+        labels[j].classList.add("correct");
+      } else {
+        labels[j].classList.add("wrong");
+      }
+      lockingInputs(i);
+    })
+  })
+}
+
+function lockingInputs(i) {
+  const inputs = document.querySelectorAll(`input[name='answer${i}']`);
+  inputs.forEach(element=>element.setAttribute("disabled", "disabled"));
+}
