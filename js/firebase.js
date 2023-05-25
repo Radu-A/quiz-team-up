@@ -9,4 +9,39 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const db = firebase.fireStore();
+export const db = firebase.firestore();
+
+export const setPoints = async () => {
+  let points = localStorage.getItem("counter");
+  await db
+    .collection("users")
+    .get()
+    .then(async (item) => {
+      if (item.size === 0) {
+        let doc = await db.collection("users").doc();
+        doc.set({ counter: [points] });
+      } else {
+        let docRef = await db
+          .collection("users")
+          .get()
+          .then((item) => {
+            let id = "";
+            item.forEach((ele) => (id = ele.id));
+            return id;
+          });
+
+        let prevResult = await db
+          .collection("users")
+          .doc(docRef)
+          .get()
+          .then((item) => item.data().counter);
+        db.collection("users")
+          .doc(docRef)
+          .update({
+            counter: [...prevResult, localStorage.getItem("counter")],
+          });
+      }
+    });
+  //   const docRef = await db.collection("points").doc();
+  //   const res = await docRef.set(points);
+};

@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
+    />
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <link rel="stylesheet" href="../css/style.css" />
     <title>Results</title>
   </head>
@@ -17,6 +22,7 @@
           <a href="../index.html">START AGAIN?</a>
         </button>
       </section>
+      <section class="ct-chart ct-perfect-fourth results-chart"></section>
     </main>
   </body>
 
@@ -29,6 +35,5 @@
   <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-storage.js"></script>
 
   <script src="/js/firebase.js" type="module"></script>
-
-  <script src="/js/results.js"></script>
+  <script src="/js/results.js" type="module"></script>
 </html>
