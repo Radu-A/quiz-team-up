@@ -2,8 +2,8 @@
 
 :root {
   --main-white: #eaeaea;
-  --theme-color: #AE1ED7; /* color anterior #272d4b */
-  --border: 1px solid #AE1ED7; /* color anterior */
+  --theme-color: #9b1fbe; /* color anterior #272d4b */
+  --border: 1px solid #9b1fbe; /* color anterior #868686 */
   --border-radius: 20px;
   --padding: 20px;
   --main-bg: url(../assets/images/quiz-bg-test.jpg);

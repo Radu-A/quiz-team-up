@@ -47,7 +47,8 @@ export const setPoints = async () => {
 
 // FIREBASE AUTH
 
-// registro de nuevos usuarios
+
+  // registro de nuevos usuarios
 const signForm = document.querySelector("#sign-form");
 
 signForm.addEventListener("submit", function (event) {
@@ -120,3 +121,5 @@ firebase.auth().onAuthStateChanged((user) => {
     // ...
   }
 });
+
+
