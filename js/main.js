@@ -111,44 +111,44 @@ window.addEventListener("hashchange", () => {
 let correctAnswers = 0;
 localStorage.clear();
 function validation(correct, i) {
-  // almacenamos inputs para el checkeo y labels para modificar apariencia
+  // almacenamos inputs para el checkeo y labels para modificar apariencia 
   const inputs = document.querySelectorAll(`input[name='answer${i}']`);
   const labels = document.querySelectorAll(`label[class='answer${i}']`);
 
   inputs.forEach((element, j) => {
-    element.addEventListener("click", function (event) {
+    element.addEventListener("click", function(event) {
       event.preventDefault();
       if (event.target.id === correct) {
-        correctAnswers++;
+        counter++;
         // añadimos la clase "correct" a la label y lanzamos mensaje
         labels[j].classList.add("correct");
         localStorage.setItem("counter", JSON.stringify(correctAnswers));
         Swal.fire({
-          title: "Correct!",
+          title: 'Correct!',
           text: `"${correct}" is the correct answer`,
-          color: "#272d4b",
-          icon: "success",
-          iconColor: "#0dde05",
-          confirmButtonText: "Continue!",
-          confirmButtonColor: "#118ab2",
+          color: '#272d4b',
+          icon: 'success',
+          iconColor: '#0dde05',
+          confirmButtonText: 'Continue!',
+          confirmButtonColor: '#118ab2'
         }).then(() => {
           if (i < 5) {
             location.hash = `#/question-${i + 1}`;
           } else {
-            window.location = "./results.html";
+            window.location = './results.html';
           }
-        });
+        })
       } else {
         // añadimos la clase "wrong" a la label y lanzamos mensaje
         labels[j].classList.add("wrong");
         Swal.fire({
-          title: "Wrong!",
+          title: 'Wrong!',
           text: `The correct anser was: "${correct}"`,
-          color: "#272d4b",
-          icon: "error",
-          iconColor: "#ff0000",
-          confirmButtonText: "Cool",
-          confirmButtonColor: "#118ab2",
+          color: '#272d4b',
+          icon: 'error',
+          iconColor: '#ff0000',
+          confirmButtonText: 'Cool',
+          confirmButtonColor: '#118ab2'
         }).then(() => {
           if (i < 5) {
             location.hash = `#/question-${i + 1}`;
@@ -156,7 +156,7 @@ function validation(correct, i) {
             window.location = "./results.html";
             localStorage.setItem("counter", JSON.stringify(correctAnswers));
           }
-        });
+        })
       }
       if (window.location.hash === "#/question-5") {
         setPoints();
