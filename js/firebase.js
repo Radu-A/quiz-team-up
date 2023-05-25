@@ -44,8 +44,6 @@ signForm.addEventListener("submit", function(event) {
     // provisional
     alert("Todos los campos son obligatorios")
   }
-
-  
 })
 
 // logeo de ususarios
@@ -57,14 +55,21 @@ logForm.addEventListener("submit", function(event) {
   const logEmail = document.querySelector('#log-email').value;
   const logPassword = document.querySelector('#log-password').value;
 
-  firebase.auth().signInWithEmailAndPassword(logEmail, logPassword)
-  .then((userCredential) => {
-    var user = userCredential.user;
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-  });
+  if (logEmail && logPassword) {
+    firebase.auth().signInWithEmailAndPassword(logEmail, logPassword)
+    .then((userCredential) => {
+      var user = userCredential.user;
+      window.location = "./pages/questions.html";
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
+  } else {
+    alert("Todos los campos son obligatorios")
+  }
+
+
 })
 
 // mostrar usuario logeado
