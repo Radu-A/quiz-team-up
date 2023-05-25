@@ -1,3 +1,5 @@
+let correctAnswers = 0;
+
 const questionsSec = document.querySelector(".questions");
 // función para barajar el array de respuestas
 function shuffle(arr) {
@@ -106,7 +108,7 @@ window.addEventListener("hashchange", () => {
 });
 
 // VALIDACIOOON!!!!!
-
+let counter = 0;
 function validation(correct, i) {
   // almacenamos inputs para el checkeo y labels para modificar apariencia 
   const inputs = document.querySelectorAll(`input[name='answer${i}']`);
@@ -115,6 +117,7 @@ function validation(correct, i) {
     element.addEventListener("click", function(event) {
       event.preventDefault();
       if (event.target.id === correct) {
+        counter++;
         // añadimos la clase "correct" a la label y lanzamos mensaje
         labels[j].classList.add("correct");
         Swal.fire({
@@ -152,6 +155,7 @@ function validation(correct, i) {
           }
         })
       }
-    })
-  })
+    });
+  });
+  localStorage.setItem("counter", JSON.stringify(counter));
 }
