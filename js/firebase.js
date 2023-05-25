@@ -35,76 +35,75 @@ export const setPoints = async () => {
           .doc(docRef)
           .get()
           .then((item) => item.data().counter);
-        db.collection("users")
+        await db
+          .collection("users")
           .doc(docRef)
           .update({
             counter: [...prevResult, localStorage.getItem("counter")],
           });
       }
     });
-  //   const docRef = await db.collection("points").doc();
-  //   const res = await docRef.set(points);
 };
 
 // FIREBASE AUTH
 
 // registro de nuevos usuarios
-const signForm = document.querySelector('#sign-form');
+const signForm = document.querySelector("#sign-form");
 
-
-
-signForm.addEventListener("submit", function(event) {
+signForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  const signEmail = document.querySelector('#sign-email').value;
-  const signPassword1 = document.querySelector('#sign-password1').value;
-  const signPassword2 = document.querySelector('#sign-password2').value;
+  const signEmail = document.querySelector("#sign-email").value;
+  const signPassword1 = document.querySelector("#sign-password1").value;
+  const signPassword2 = document.querySelector("#sign-password2").value;
 
   if (signEmail && signPassword1 && signPassword2) {
     if (signPassword1 === signPassword2) {
-      firebase.auth().createUserWithEmailAndPassword(signEmail, signPassword1)
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(signEmail, signPassword1)
+        .then((userCredential) => {
+          var user = userCredential.user;
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+        });
+    } else {
+      // provisional
+      alert("Los contraseñas no coiciden");
+    }
+  } else {
+    // provisional
+    alert("Todos los campos son obligatorios");
+  }
+});
+
+// logeo de ususarios
+const logForm = document.querySelector("#log-form");
+
+logForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const logEmail = document.querySelector("#log-email").value;
+  const logPassword = document.querySelector("#log-password").value;
+
+  if (logEmail && logPassword) {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(logEmail, logPassword)
       .then((userCredential) => {
         var user = userCredential.user;
+        window.location = "./pages/questions.html";
       })
       .catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
       });
-    } else {
-      // provisional
-      alert("Los contraseñas no coiciden")
-    }
   } else {
-    // provisional
-    alert("Todos los campos son obligatorios")
+    alert("Todos los campos son obligatorios");
   }
-})
-
-// logeo de ususarios
-const logForm = document.querySelector("#log-form");
-
-logForm.addEventListener("submit", function(event) {
-  event.preventDefault();
-
-  const logEmail = document.querySelector('#log-email').value;
-  const logPassword = document.querySelector('#log-password').value;
-
-  if (logEmail && logPassword) {
-    firebase.auth().signInWithEmailAndPassword(logEmail, logPassword)
-    .then((userCredential) => {
-      var user = userCredential.user;
-      window.location = "./pages/questions.html";
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-    });
-  } else {
-    alert("Todos los campos son obligatorios")
-  }
-
-
-})
+});
 
 // mostrar usuario logeado
 
