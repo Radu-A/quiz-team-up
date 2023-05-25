@@ -1,4 +1,4 @@
-let correctAnswers = 0;
+import { setPoints } from "./firebase.js";
 
 const questionsSec = document.querySelector(".questions");
 // función para barajar el array de respuestas
@@ -108,11 +108,13 @@ window.addEventListener("hashchange", () => {
 });
 
 // VALIDACIOOON!!!!!
-let counter = 0;
+let correctAnswers = 0;
+localStorage.clear();
 function validation(correct, i) {
   // almacenamos inputs para el checkeo y labels para modificar apariencia 
   const inputs = document.querySelectorAll(`input[name='answer${i}']`);
   const labels = document.querySelectorAll(`label[class='answer${i}']`);
+
   inputs.forEach((element, j) => {
     element.addEventListener("click", function(event) {
       event.preventDefault();
@@ -120,6 +122,7 @@ function validation(correct, i) {
         counter++;
         // añadimos la clase "correct" a la label y lanzamos mensaje
         labels[j].classList.add("correct");
+        localStorage.setItem("counter", JSON.stringify(correctAnswers));
         Swal.fire({
           title: 'Correct!',
           text: `"${correct}" is the correct answer`,
@@ -135,7 +138,6 @@ function validation(correct, i) {
             window.location = './results.html';
           }
         })
-        
       } else {
         // añadimos la clase "wrong" a la label y lanzamos mensaje
         labels[j].classList.add("wrong");
@@ -151,11 +153,14 @@ function validation(correct, i) {
           if (i < 5) {
             location.hash = `#/question-${i + 1}`;
           } else {
-            window.location = './results.html';
+            window.location = "./results.html";
+            localStorage.setItem("counter", JSON.stringify(correctAnswers));
           }
         })
       }
+      if (window.location.hash === "#/question-5") {
+        setPoints();
+      }
     });
   });
-  localStorage.setItem("counter", JSON.stringify(counter));
 }
