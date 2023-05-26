@@ -78,7 +78,7 @@ a:visited {
   font-size: 1.2rem;
   text-align: center;
 }
-#sign-buton, #log-buton, #again-button, #start-button {
+#sign-buton, #log-buton, #again-button, #logout-buton, #start-button {
   width: 100%;
   display: flex;
   justify-content: center;
