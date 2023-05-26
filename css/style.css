@@ -91,6 +91,9 @@ a:visited {
   font-family: inherit;
   font-size: 1.2rem;
 }
+.error {
+  color: #ff0000;
+}
 /* ESTILOS QUESTIONS.HTML */
 .questions-container {
   display: flex;

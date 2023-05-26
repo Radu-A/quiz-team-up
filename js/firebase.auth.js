@@ -9,45 +9,39 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// PINTAR PANTALLA
-
 const welcome = document.createElement("section");
 welcome.id = 'welcome';
 const index = document.querySelector(".index");
 
-// saber quien está logeado
+// antes de pintar pantalla debemos saber si algún usuario logeado y quien es
 
 firebase.auth().onAuthStateChanged((user) => {
+  // si hay hay un ususario logeado pintamos la pantalla que ofrece jugar de nuevo o deslogearse
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    var uid = user.uid;
-    // ...
+    // pintamos pantalla
     welcome.innerHTML = 
     `<h1>Welcome ${user.displayName}!</h1>
     <h2>Do you want to start again?</h2>
     <button id="again-button">Try again</button>
     <a id='logout-link' href=''>...or just log out?</a>`;
     index.appendChild(welcome);
+    // añadimos el evento para jugar de nuevo
     const againButton = document.querySelector('#again-button');
-    const logoutLink = document.querySelector('#logout-link');
-
     againButton.addEventListener('click', function() {
-
+      
       window.location = "./pages/questions.html";
     })
-
+    // añadimos el evento para deslogearse
+    const logoutLink = document.querySelector('#logout-link');
     logoutLink.addEventListener('click', function() {
       firebase.auth().signOut().then(() => {
-        // Sign-out successful.
         window.location.reload();
       }).catch((error) => {
         // An error happened.
       });
     })
+  // si el usuario no está logeado pintamos la pantalla que ofre logearse o registrarse
   } else {
-    // User is signed out
-    // ...
     welcome.innerHTML = 
     `<h1>Welcome to the quiz!</h1>
     <h2>Log in and start the game</h2>
@@ -66,14 +60,52 @@ firebase.auth().onAuthStateChanged((user) => {
       <button id="sign-buton">Sign-in</button>
     </form>`;
     index.appendChild(welcome);
+    const errorP = document.createElement("p");
+    errorP.classList.add('error');
+    // si ya se ha agregado un párrafo de error, se borrará al modificar un input
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach(input=> {
+      input.addEventListener('click', function() {
+        if (document.querySelector('p.error')) {
+          document.querySelector('p.error').remove();
+        }
+      })
+    })
+
+    // logeo de ususarios
+    const logForm = document.querySelector("#log-form");
+    
+    logForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const logEmail = document.querySelector("#log-email").value;
+      const logPassword = document.querySelector("#log-password").value;
+      
+      if (logEmail && logPassword) {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(logEmail, logPassword)
+          .then((userCredential) => {
+            var user = userCredential.user;
+            window.location = "./pages/questions.html";
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            
+            errorP.innerHTML = error.message;
+            logForm.appendChild(errorP);
+          });
+      } else {
+        errorP.innerHTML = 'All fields are required';
+        logForm.appendChild(errorP);
+      }
+    });
 
     // registro de nuevos usuarios
     const signForm = document.querySelector("#sign-form");
-
     signForm.addEventListener("submit", function (event) {
       event.preventDefault();
       
-
       const signName = document.querySelector("#sign-name").value;
       const signEmail = document.querySelector("#sign-email").value;
       const signPassword1 = document.querySelector("#sign-password1").value;
@@ -85,17 +117,12 @@ firebase.auth().onAuthStateChanged((user) => {
           .then((userCredential) => {
             // Signed in
             const user = firebase.auth().currentUser;
-
             user.updateProfile({
-              displayName: "Jane Q. User"
-            }).then(() => {
-              // Update successful
-              // ...
+              displayName: signName
             }).catch((error) => {
               // An error occurred
               // ...
-            });  
-            // ...
+            });
           })
           .catch((error) => {
             var errorCode = error.code;
@@ -103,38 +130,12 @@ firebase.auth().onAuthStateChanged((user) => {
             // ..
           });
         } else {
-          // provisional
-          alert("Los contraseñas no coiciden");
+          errorP.innerHTML = "The passwords doesn't match";
+          signForm.appendChild(errorP);
         }
       } else {
-        // provisional
-        alert("Todos los campos son obligatorios");
-      }
-    });
-
-    // logeo de ususarios
-    const logForm = document.querySelector("#log-form");
-
-    logForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      const logEmail = document.querySelector("#log-email").value;
-      const logPassword = document.querySelector("#log-password").value;
-
-      if (logEmail && logPassword) {
-        firebase
-          .auth()
-          .signInWithEmailAndPassword(logEmail, logPassword)
-          .then((userCredential) => {
-            var user = userCredential.user;
-            window.location = "./pages/questions.html";
-          })
-          .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-          });
-      } else {
-        alert("Todos los campos son obligatorios");
+        errorP.innerHTML = 'All fields are required';
+        signForm.appendChild(errorP);
       }
     });
   }
