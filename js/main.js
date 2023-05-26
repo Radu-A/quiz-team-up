@@ -49,16 +49,14 @@ async function getQuiz() {
     return results.map((element) => {
       const question = element.question;
       const correct = element.correct_answer;
-      // creamos un array donde introducimos todas las respuestas
-      // para luego desordenarlas
+      // creamos un array donde introducimos todas las respuestas para luego desordenarlas
       let answers = [];
       answers.push(element.correct_answer);
       element.incorrect_answers.forEach((item) => {
         answers.push(item);
       });
       const randomAnswers = shuffle(answers);
-      // devolvemos un objeto con la pregunta, la respuesta correcta
-      // y todas las respuestas mezcladas
+      // por cada elemento devolvemos un objeto con la pregunta, la respuesta correcta y todas las respuestas mezcladas
       return { question, correct, randomAnswers };
     });
   } catch (error) {
@@ -68,10 +66,9 @@ async function getQuiz() {
 // invocamos la función y almacenamos la respuesta es una variable
 // para no hacer varias diferentes llamadas en una sola partida
 let quiz = getQuiz();
-// pintamos la primera respuesta
+// pintamos la primera respuesta e invocamos la validación
 quiz.then((data) => {
   printFieldset(data[0], 1);
-
   validation(data[0].correct, 1);
 });
 // empleamos el evento "hashchange" para movernos
@@ -119,9 +116,11 @@ function validation(correct, i) {
     element.addEventListener("click", function (event) {
       event.preventDefault();
       if (event.target.id === correct) {
+        // sumatorio de aciertos
         correctAnswers++;
         // añadimos la clase "correct" a la label y lanzamos mensaje
         labels[j].classList.add("correct");
+        // almacenamos sumatorio en localstorage
         localStorage.setItem("counter", JSON.stringify(correctAnswers));
         Swal.fire({
           title: "Correct!",

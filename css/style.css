@@ -2,8 +2,8 @@
 
 :root {
   --main-white: #eaeaea;
-  --theme-color: #272d4b;
-  --border: 1px solid #868686;
+  --theme-color: #9b1fbe; /* color anterior #272d4b */
+  --border: 1px solid #9b1fbe; /* color anterior #868686 */
   --border-radius: 20px;
   --padding: 20px;
   --main-bg: url(../assets/images/quiz-bg-test.jpg);
@@ -19,16 +19,6 @@ body {
   color: var(--theme-color);
   background-color: #bcd7e0;
 }
-
-h1 {
-  font-size: 1.8rem;
-  text-align: center;
-}
-a,
-a:active,
-a:visited {
-  text-decoration: none;
-}
 .index {
   min-height: 100vh;
   width: 100vw;
@@ -40,9 +30,39 @@ a:visited {
   background-size: cover;
   padding: var(--padding);
 }
+h1 {
+  font-size: 1.8rem;
+  text-align: center;
+}
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+input {
+  width: 90%;
+  height: 2rem;
+  border-radius: 5px;
+  border: 1px solid var(--theme-color);
+  padding: 0.5rem;
+  font-family: inherit;
+  color: var(--theme-color);
+}
+input:focus {
+  border-color: var(--theme-color);
+}
+a,
+a:active,
+a:visited {
+  text-decoration: none;
+}
+
 
 /* puede sustituirse por section */
-#sign-in, #log-form, #welcome,
+#welcome,
 #graph {
   display: flex;
   flex-direction: column;
@@ -68,6 +88,8 @@ a:visited {
   border: var(--border);
   color: inherit;
   text-decoration: none;
+  font-family: inherit;
+  font-size: 1.2rem;
 }
 /* ESTILOS QUESTIONS.HTML */
 .questions-container {
