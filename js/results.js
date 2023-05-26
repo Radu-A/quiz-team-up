@@ -7,8 +7,8 @@ document.querySelector(".results-final-result").innerHTML = `${JSON.parse(
 db.collection("users")
   .get()
   .then((item) => {
-    var data = {
-      labels: ["5 últimas partidas"],
+    let data = {
+      labels: [],
       series: [],
     };
     item.forEach((ele) => {
@@ -18,9 +18,15 @@ db.collection("users")
         }
         return +item;
       });
-      data.series.push(resArray);
+      let numPartidas = resArray.length;
+      let ultimasPartidas = numPartidas - 5;
+      for (let i = ultimasPartidas + 1; i <= numPartidas; i++) {
+        data.labels.push(i);
+      }
+      data.series.push(resArray.slice(resArray.length - 5));
     });
-    new Chartist.Bar(".results-chart", data, {
+    new Chartist.Bar(".ct-chart", data, {
       axisY: { onlyInteger: true },
+      high: 5,
     });
   });

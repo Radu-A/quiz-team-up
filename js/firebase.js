@@ -13,39 +13,32 @@ export const db = firebase.firestore();
 
 export const setPoints = async () => {
   let points = localStorage.getItem("counter");
-  await db
-    .collection("users")
-    .get()
-    .then(async (item) => {
-      if (item.size === 0) {
-        let doc = await db.collection("users").doc();
-        doc.set({ counter: [points] });
-      } else {
-        let docRef = await db
-          .collection("users")
-          .get()
-          .then((item) => {
-            let id = "";
-            item.forEach((ele) => (id = ele.id));
-            return id;
-          });
+  let obj = {
+    email: "",
+    counter: [points],
+  };
+  await firebase.auth().onAuthStateChanged((user) => {
+    obj.email = user.email;
+  });
 
-        let prevResult = await db
-          .collection("users")
-          .doc(docRef)
-          .get()
-          .then((item) => item.data().counter);
-        await db
-          .collection("users")
-          .doc(docRef)
-          .update({
-            counter: [...prevResult, localStorage.getItem("counter")],
-          });
-      }
-    });
+  db.collection("users")
+    .get()
+    .then((item) =>
+      item.forEach(async (ele) => {
+        if (ele.data().email === obj.email) {
+          let prevPoints = ele.data().counter;
+          await db
+            .collection("users")
+            .doc(ele.id)
+            .update({
+              ...ele.data(),
+              counter: [...prevPoints, points],
+            });
+        } else {
+          db.collection("users").add(obj);
+        }
+      })
+    );
 };
 
 // FIREBASE AUTH
-
-
-
