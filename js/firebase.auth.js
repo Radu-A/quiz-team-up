@@ -9,31 +9,41 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// PINTAR PANTALLA
-
 const welcome = document.createElement("section");
 welcome.id = 'welcome';
 const index = document.querySelector(".index");
 
-// saber quien está logeado
-var uid;
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    uid = user.uid;
-    // ...
-    console.log(user.email);
-    console.log(uid);
-  } else {
-    // User is signed out
-    // ...
-  }
-});
+// antes de pintar pantalla debemos saber si algún usuario logeado y quien es
 
-if (uid === '') {
-  welcome.innerHTML = 
-  `<h1>Welcome to the quiz!</h1>
+firebase.auth().onAuthStateChanged((user) => {
+  // si hay hay un ususario logeado pintamos la pantalla que ofrece jugar de nuevo o deslogearse
+  if (user) {
+    // pintamos pantalla
+    welcome.innerHTML = 
+    `<h1>Welcome ${user.displayName}!</h1>
+    <h2>Do you want to start again?</h2>
+    <button id="again-button">Try again</button>
+    <a id='logout-link' href=''>...or just log out?</a>`;
+    index.appendChild(welcome);
+    // añadimos el evento para jugar de nuevo
+    const againButton = document.querySelector('#again-button');
+    againButton.addEventListener('click', function() {
+      
+      window.location = "./pages/questions.html";
+    })
+    // añadimos el evento para deslogearse
+    const logoutLink = document.querySelector('#logout-link');
+    logoutLink.addEventListener('click', function() {
+      firebase.auth().signOut().then(() => {
+        window.location.reload();
+      }).catch((error) => {
+        // An error happened.
+      });
+    })
+  // si el usuario no está logeado pintamos la pantalla que ofre logearse o registrarse
+  } else {
+    welcome.innerHTML = 
+    `<h1>Welcome to the quiz!</h1>
     <h2>Log in and start the game</h2>
     <form action="" id="log-form">
       <input type="email" name="" id="log-email" placeholder="Email">
@@ -43,79 +53,90 @@ if (uid === '') {
     <!-- <a href="./pages/questions.html" id="start-button">LOG IN</a> -->
     <P>...or register here</P>
     <form action="" id="sign-form">
+      <input type="text" name="" id="sign-name" placeholder="Name">
       <input type="email" name="" id="sign-email" placeholder="Email">
       <input type="password" name="" id="sign-password1" placeholder="Password">
       <input type="password" name="" id="sign-password2" placeholder="Repete password">
       <button id="sign-buton">Sign-in</button>
     </form>`;
-  index.appendChild(welcome);
-} else {
-  welcome.innerHTML = 
-  `<h1>Welcome Mengano!</h1>
-  <h2>Do you want to start again?</h2>
-  <button id="again-button">Try again</button>`;
-  index.appendChild(welcome);
-  // registro de nuevos usuarios
-  const signForm = document.querySelector("#sign-form");
+    index.appendChild(welcome);
+    const errorP = document.createElement("p");
+    errorP.classList.add('error');
+    // si ya se ha agregado un párrafo de error, se borrará al modificar un input
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach(input=> {
+      input.addEventListener('click', function() {
+        if (document.querySelector('p.error')) {
+          document.querySelector('p.error').remove();
+        }
+      })
+    })
 
-  signForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+    // logeo de ususarios
+    const logForm = document.querySelector("#log-form");
+    
+    logForm.addEventListener("submit", function (event) {
+      event.preventDefault();
 
-    const signEmail = document.querySelector("#sign-email").value;
-    const signPassword1 = document.querySelector("#sign-password1").value;
-    const signPassword2 = document.querySelector("#sign-password2").value;
-
-    if (signEmail && signPassword1 && signPassword2) {
-      if (signPassword1 === signPassword2) {
-        firebase.auth().createUserWithEmailAndPassword(signEmail, signPassword1)
-        .then((userCredential) => {
-          // Signed in
-          var user = userCredential.user;
-          // ...
-        })
-        .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // ..
-        });
+      const logEmail = document.querySelector("#log-email").value;
+      const logPassword = document.querySelector("#log-password").value;
+      
+      if (logEmail && logPassword) {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(logEmail, logPassword)
+          .then((userCredential) => {
+            var user = userCredential.user;
+            window.location = "./pages/questions.html";
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            
+            errorP.innerHTML = error.message;
+            logForm.appendChild(errorP);
+          });
       } else {
-        // provisional
-        alert("Los contraseñas no coiciden");
+        errorP.innerHTML = 'All fields are required';
+        logForm.appendChild(errorP);
       }
-    } else {
-      // provisional
-      alert("Todos los campos son obligatorios");
-    }
-  });
+    });
 
-  // logeo de ususarios
-  const logForm = document.querySelector("#log-form");
+    // registro de nuevos usuarios
+    const signForm = document.querySelector("#sign-form");
+    signForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      
+      const signName = document.querySelector("#sign-name").value;
+      const signEmail = document.querySelector("#sign-email").value;
+      const signPassword1 = document.querySelector("#sign-password1").value;
+      const signPassword2 = document.querySelector("#sign-password2").value;
 
-  logForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    const logEmail = document.querySelector("#log-email").value;
-    const logPassword = document.querySelector("#log-password").value;
-
-    if (logEmail && logPassword) {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(logEmail, logPassword)
-        .then((userCredential) => {
-          var user = userCredential.user;
-          window.location = "./pages/questions.html";
-        })
-        .catch((error) => {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-        });
-    } else {
-      alert("Todos los campos son obligatorios");
-    }
-  });
-
-  // mostrar usuario logeado
-
+      if (signName && signEmail && signPassword1 && signPassword2) {
+        if (signPassword1 === signPassword2) {
+          firebase.auth().createUserWithEmailAndPassword(signEmail, signPassword1)
+          .then((userCredential) => {
+            // Signed in
+            const user = firebase.auth().currentUser;
+            user.updateProfile({
+              displayName: signName
+            }).catch((error) => {
+              // An error occurred
+              // ...
+            });
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ..
+          });
+        } else {
+          errorP.innerHTML = "The passwords doesn't match";
+          signForm.appendChild(errorP);
+        }
+      } else {
+        errorP.innerHTML = 'All fields are required';
+        signForm.appendChild(errorP);
+      }
+    });
   }
-
-
+});
