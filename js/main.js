@@ -157,9 +157,6 @@ function validation(correct, i) {
           }
         });
       }
-      if (window.location.hash === "#/question-5") {
-        setPoints();
-      }
     });
   });
 }

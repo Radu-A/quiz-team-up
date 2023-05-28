@@ -60,7 +60,6 @@ a:visited {
   text-decoration: none;
 }
 
-
 /* puede sustituirse por section */
 #welcome,
 #graph {
@@ -78,7 +77,11 @@ a:visited {
   font-size: 1.2rem;
   text-align: center;
 }
-#sign-buton, #log-buton, #again-button, #logout-buton, #start-button {
+#sign-buton,
+#log-buton,
+#again-button,
+#logout-buton,
+#start-button {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -100,7 +103,7 @@ a:visited {
   justify-content: center;
   align-items: center;
 }
-.questions-nav {
+/* .questions-nav {
   position: fixed;
   top: 0;
   width: 100%;
@@ -108,7 +111,8 @@ a:visited {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: cadetblue;
+  background-color: var(--main-white);
+  z-index: 9999;
 }
 .questions-nav ul {
   display: flex;
@@ -119,9 +123,10 @@ a:visited {
 }
 .questions-nav li a {
   text-decoration: none;
-}
+} */
 
 .questions {
+  position: relative;
   min-height: 100vh;
   max-width: 450px;
   padding-top: 8vh;
@@ -131,7 +136,6 @@ a:visited {
   background-image: var(--main-bg);
   background-size: cover;
 }
-
 .question-text {
   min-height: 40vh;
   padding: var(--padding);
@@ -243,4 +247,57 @@ input:checked + label {
   color: #ff0000;
   font-size: 1.3rem;
   border: 4px solid #ff0000;
+}
+
+/* LOADER */
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  content: "";
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (min-width: 468px) {
+  .questions-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--main-bg);
+  }
+  .questions {
+    min-height: 80vh;
+    justify-content: center;
+    background-color: var(--main-white);
+    padding: var(--padding);
+    border-radius: var(--border-radius);
+    background-image: unset;
+  }
+  .question-text {
+    text-shadow: unset;
+  }
 }
