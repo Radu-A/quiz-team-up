@@ -1,11 +1,12 @@
 # EJERCICIO: Quiz 2.0
 
-La aplicación consiste en un quiz de 5 preguntas aleatorias. El usuario podrá registrarse para guardar sus partidas.
+La aplicación consiste en un quiz de 10 preguntas aleatorias. El usuario podrá registrarse para guardar sus partidas.
 
 ## Tabla de contenidos
 
 - [Objetivo](#objetivo)
   - [Requisitos](#requisitos)
+  - [Fases](#fases)
   - [Capturas](#capturas)
   - [Links](#links)
 - [Proceso](#Proceso)
@@ -30,6 +31,15 @@ La aplicación consiste en un quiz de 5 preguntas aleatorias. El usuario podrá 
 - Sin frameworks ni librerias externas en la medida de lo posible
 - Gestión del proyecto en Github desde el principio. Uso de ramas, fork, pull request, etc...
 - Código limpio, buenas prácticas
+
+### Fases
+
+- FASE 1: Diseño del front: Diseño responsive, mobile first, semántica HTML5.
+- FASE 2: Lógica de JavaScript.
+- FASE 3: Asincronía: Leer 10 preguntas random de la API de prenguntas para generar el Quiz.
+- FASE 4 (avanzado) - APIs HTML5: Almacenar la puntuación de cada partida en Local Storage. Mostrar en la Home con una gráfica los resultados de las últimas partidas jugadas.
+- FASE 5 - Migración a Firebase (LA ÚLTIMA PARTE)
+- FASE 6 - Firebase Auth (DEJAR PARA EL FINAL). Login con Google (obligatorio) y email+password
 
 ### Capturas
 
