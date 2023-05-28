@@ -1,6 +1,6 @@
 # EJERCICIO: Quiz 2.0
 
-La aplicación consiste en un quiz de 10 preguntas aleatorias. El usuario podrá registrarse para guardar sus partidas.
+La aplicación consiste en un quiz de 5 preguntas aleatorias. El usuario podrá registrarse para guardar sus partidas.
 
 ## Tabla de contenidos
 
@@ -17,7 +17,7 @@ La aplicación consiste en un quiz de 10 preguntas aleatorias. El usuario podrá
 
 ## Objetivo
 
-- El Quiz constará de 10 preguntas. Cada pregunta tendrá 4 opciones y sólo una de ellas será la correcta
+- El Quiz constará de 5 preguntas. Cada pregunta tendrá 4 opciones y sólo una de ellas será la correcta
 - Podrán ser preguntas nuestras y preguntas que vengan de https://opentdb.com/
 - La aplicación tendrá que ser una SPA (single-page application). Sólo una pregunta cada vez en pantalla
 
@@ -36,10 +36,10 @@ La aplicación consiste en un quiz de 10 preguntas aleatorias. El usuario podrá
 
 - FASE 1: Diseño del front: Diseño responsive, mobile first, semántica HTML5.
 - FASE 2: Lógica de JavaScript.
-- FASE 3: Asincronía: Leer 10 preguntas random de la API de prenguntas para generar el Quiz.
+- FASE 3: Asincronía: Leer 5 preguntas random de la API de prenguntas para generar el Quiz.
 - FASE 4 (avanzado) - APIs HTML5: Almacenar la puntuación de cada partida en Local Storage. Mostrar en la Home con una gráfica los resultados de las últimas partidas jugadas.
-- FASE 5 - Migración a Firebase (LA ÚLTIMA PARTE)
-- FASE 6 - Firebase Auth (DEJAR PARA EL FINAL). Login con Google (obligatorio) y email+password
+- FASE 5 - Migración a Firebase
+- FASE 6 - Firebase Auth. Login con Google (obligatorio) y email+password
 
 ### Capturas
 
