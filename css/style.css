@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Braah+One&display=swap");
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 :root {
   --main-white: #eaeaea;
   --theme-color: #9b1fbe; /* color anterior #272d4b */
@@ -33,6 +35,9 @@ body {
 h1 {
   font-size: 1.8rem;
   text-align: center;
+}
+p {
+  width: 90%;
 }
 form {
   width: 100%;
@@ -77,11 +82,7 @@ a:visited {
   font-size: 1.2rem;
   text-align: center;
 }
-#sign-buton,
-#log-buton,
-#again-button,
-#logout-buton,
-#start-button {
+button {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -93,6 +94,19 @@ a:visited {
   text-decoration: none;
   font-family: inherit;
   font-size: 1.2rem;
+}
+#google-button {
+  background-color: white;
+  color: #000;
+  height: 2rem;
+  font-family: 'Roboto';
+  font-size: 1rem;
+  display: flex;
+  justify-content: left;
+  gap: 2rem;
+}
+#google-icon {
+  width: 1.5rem;
 }
 .error {
   color: #ff0000;
