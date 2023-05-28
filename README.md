@@ -50,8 +50,8 @@ La aplicación consiste en un quiz de 10 preguntas aleatorias. El usuario podrá
 
 ### Links
 
-- Repositorio: [Add solution URL here](https://github.com/Radu-A/quiz-team-up)
-- Live Site: [Add live site URL here](https://quiz-team-up.vercel.app/)
+- Repositorio: [Quiz Team Up](https://github.com/Radu-A/quiz-team-up)
+- Live Site: [Demo](https://quiz-team-up.vercel.app/)
 
 ## Proceso
 
@@ -80,5 +80,5 @@ La aplicación consiste en un quiz de 10 preguntas aleatorias. El usuario podrá
 
 ### Recursos
 
-- [Example resource 1](https://www.youtube.com/watch?v=D9avX-jtIPM&t=3980s) - Tutorial sobre el uso de SPA con Vanilla Jvascript.
-- [Example resource 2](https://www.youtube.com/watch?v=1rLBjRF0ep0&t=3974s) - Tutorial sobre Firebase Auth.
+- [Tutorial SPA JS Vanilla](https://www.youtube.com/watch?v=D9avX-jtIPM&t=3980s) - Tutorial sobre el uso de SPA con Vanilla Jvascript.
+- [Firebase Auth](https://www.youtube.com/watch?v=1rLBjRF0ep0&t=3974s) - Tutorial sobre Firebase Auth.
