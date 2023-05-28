@@ -12,9 +12,10 @@ firebase.initializeApp(firebaseConfig);
 const welcome = document.createElement("section");
 welcome.id = 'welcome';
 const index = document.querySelector(".index");
+const emailRe = /^(\w)(\w+-?_?.?)+@(\w+)\.([a-z]{2,4})$/gi;
+const passRe = /^[\w\-\.]{6,12}$/g;
 
-// antes de pintar pantalla debemos saber si algún usuario logeado y quien es
-
+// antes de pintar pantalla debemos saber si hay algún usuario logeado y quien es
 firebase.auth().onAuthStateChanged((user) => {
   // si hay hay un ususario logeado pintamos la pantalla que ofrece jugar de nuevo o deslogearse
   if (user) {
@@ -28,7 +29,6 @@ firebase.auth().onAuthStateChanged((user) => {
     // añadimos el evento para jugar de nuevo
     const againButton = document.querySelector('#again-button');
     againButton.addEventListener('click', function() {
-      
       window.location = "./pages/questions.html";
     })
     // añadimos el evento para deslogearse
@@ -46,18 +46,19 @@ firebase.auth().onAuthStateChanged((user) => {
     `<h1>Welcome to the quiz!</h1>
     <h2>Log in and start the game</h2>
     <form action="" id="log-form">
-      <input type="email" name="" id="log-email" placeholder="Email">
+      <input type="text" name="" id="log-email" placeholder="Email">
       <input type="password" name="" id="log-password" placeholder="Password">
-      <button id="log-buton">Log-in</button>
+      <button id="log-button">Log in</button>
+      <button id="google-button"><img id="google-icon" src="./assets/images/google-logos-idvNIQR3p7.svg" alt="">Continue with Google</button>
     </form>
     <!-- <a href="./pages/questions.html" id="start-button">LOG IN</a> -->
-    <P>...or register here</P>
+    <p>...or register here</p>
     <form action="" id="sign-form">
       <input type="text" name="" id="sign-name" placeholder="Name">
-      <input type="email" name="" id="sign-email" placeholder="Email">
+      <input type="text" name="" id="sign-email" placeholder="Email">
       <input type="password" name="" id="sign-password1" placeholder="Password">
       <input type="password" name="" id="sign-password2" placeholder="Repete password">
-      <button id="sign-buton">Sign-in</button>
+      <button id="sign-button">Sign up</button>
     </form>`;
     index.appendChild(welcome);
     const errorP = document.createElement("p");
@@ -82,12 +83,21 @@ firebase.auth().onAuthStateChanged((user) => {
       const logPassword = document.querySelector("#log-password").value;
       
       if (logEmail && logPassword) {
-        firebase
+        if (logEmail.match(emailRe)) {
+          firebase
           .auth()
           .signInWithEmailAndPassword(logEmail, logPassword)
           .then((userCredential) => {
             var user = userCredential.user;
-            window.location = "./pages/questions.html";
+            Swal.fire({
+              title: `Hi again ${user.displayName}`,
+              text: "Are you ready for the challenge" ,
+              color: "#9b1fbe",
+              icon: "success",
+              iconColor: "#9b1fbe",
+              confirmButtonText: "Let's go!",
+              confirmButtonColor: "#9b1fbe",
+            }).then(() => window.location = "./pages/questions.html")
           })
           .catch((error) => {
             var errorCode = error.code;
@@ -95,11 +105,23 @@ firebase.auth().onAuthStateChanged((user) => {
             errorP.innerHTML = error.message;
             logForm.appendChild(errorP);
           });
+        } else {
+          errorP.innerHTML = "Email doesn't have the correct format";
+          logForm.appendChild(errorP);
+        }
       } else {
         errorP.innerHTML = 'All fields are required';
         logForm.appendChild(errorP);
       }
     });
+    // validación del primer input de contraseña
+    const inputPassword1 = document.querySelector('#sign-password1');
+    inputPassword1.addEventListener('change', function() {
+      if (!inputPassword1.value.match(passRe)) {
+        errorP.innerHTML = 'Password should have between 6-12 alphanumeric characters and / . - _';
+        signForm.appendChild(errorP);
+      }
+    })
 
     // registro de nuevos usuarios
     const signForm = document.querySelector("#sign-form");
@@ -108,27 +130,32 @@ firebase.auth().onAuthStateChanged((user) => {
       
       const signName = document.querySelector("#sign-name").value;
       const signEmail = document.querySelector("#sign-email").value;
-      const signPassword1 = document.querySelector("#sign-password1").value;
+      const signPassword1 = inputPassword1.value;
       const signPassword2 = document.querySelector("#sign-password2").value;
 
       if (signName && signEmail && signPassword1 && signPassword2) {
         if (signPassword1 === signPassword2) {
-          firebase.auth().createUserWithEmailAndPassword(signEmail, signPassword1)
-          .then((userCredential) => {
-            // Signed in
-            const user = firebase.auth().currentUser;
-            user.updateProfile({
-              displayName: signName
-            }).catch((error) => {
-              // An error occurred
-              // ...
+          if (signPassword1.match(passRe)) {
+            firebase.auth().createUserWithEmailAndPassword(signEmail, signPassword1)
+            .then((userCredential) => {
+              // Signed in
+              const user = userCredential.user;
+              user.updateProfile({
+                displayName: signName
+              }).catch((error) => {
+                // An error occurred
+                // ...
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // ..
             });
-          })
-          .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ..
-          });
+          } else {
+            errorP.innerHTML = 'Password should have between 6-12 alphanumeric characters or: / . - _';
+            signForm.appendChild(errorP);
+          }
         } else {
           errorP.innerHTML = "The passwords doesn't match";
           signForm.appendChild(errorP);
