@@ -16,8 +16,8 @@ export const showChart = async () => {
   const loader = document.createElement("div");
   loader.className = "lds-dual-ring";
   resultsChart.appendChild(loader);
-  setTimeout(async () => {
-    await firebase.auth().onAuthStateChanged((user) => {
+  setTimeout(() => {
+    firebase.auth().onAuthStateChanged((user) => {
       resultsChart.innerHTML = "";
       let email = user.email;
       db.collection("users")
@@ -25,7 +25,7 @@ export const showChart = async () => {
         .get()
         .then((item) => {
           let data = {
-            labels: [1, 2, 3, 4, 5],
+            labels: [],
             series: [],
           };
           let results = item.data().counter.map((ele) => {
@@ -34,14 +34,53 @@ export const showChart = async () => {
             }
             return +ele;
           });
-          data.series.push(results);
+          if (results.length <= 5) {
+            data.labels = [1, 2, 3, 4, 5];
+            switch (results.length) {
+              case 1:
+                results = [...results, 0, 0, 0, 0];
+                break;
+              case 2:
+                results = [...results, 0, 0, 0];
+                break;
+              case 3:
+                results = [...results, 0, 0];
+                break;
+              case 4:
+                results = [...results, 0];
+                break;
+              case 5:
+                results = [...results];
+                break;
+            }
+            data.series.push(results);
+          } else {
+            let resArray = results.slice(results.length - 5);
+            data.series.push(resArray);
+            for (let i = results.length - 5; i < results.length; i++) {
+              data.labels.push(i + 1);
+            }
+          }
           new Chartist.Bar(".ct-chart", data, {
             axisY: { onlyInteger: true },
             high: 5,
+            chartPadding: {
+              right: 20,
+              top: 40,
+              bottom: 20,
+            },
           });
         });
+      const labelY = document.createElement("div");
+      labelY.innerHTML = "Puntuación";
+      labelY.className = "labelY";
+      const labelX = document.createElement("div");
+      labelX.innerHTML = "Últimas 5 partidas";
+      labelX.className = "labelX";
+      resultsChart.appendChild(labelY);
+      resultsChart.appendChild(labelX);
     });
-  }, 1000);
+  }, 2000);
 };
 
 const createReg = async (user, data) => {

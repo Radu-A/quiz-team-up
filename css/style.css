@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Braah+One&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 :root {
   --main-white: #eaeaea;
@@ -99,7 +99,7 @@ button {
   background-color: white;
   color: #000;
   height: 2rem;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 1rem;
   display: flex;
   justify-content: left;
@@ -225,7 +225,9 @@ input:checked + label {
   border-radius: var(--border-radius);
   gap: 20px;
 }
-
+.results-title {
+  text-align: center;
+}
 .results-final-result {
   margin: 7px 0px;
   font-size: 2rem;
@@ -247,6 +249,20 @@ input:checked + label {
   max-width: 450px;
   background-color: var(--main-white);
   border-radius: var(--border-radius);
+}
+
+.labelY {
+  position: absolute;
+  top: 50%;
+  left: -6%;
+  color: #9d9d9d;
+  rotate: -90deg;
+}
+.labelX {
+  position: absolute;
+  top: 90%;
+  right: 30%;
+  color: #9d9d9d;
 }
 /* VALIDACIÓN */
 
@@ -313,5 +329,8 @@ input:checked + label {
   }
   .question-text {
     text-shadow: unset;
+  }
+  .labelY {
+    left: -4.5%;
   }
 }
